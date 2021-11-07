@@ -11,6 +11,7 @@ public class RaqueteController : MonoBehaviour
     public float meuLimite = 3.5f;
 
     public bool player1;
+    public bool automatico = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,30 +28,34 @@ public class RaqueteController : MonoBehaviour
 
         float deltaVelocidade = velocidade * Time.deltaTime;
 
-
-        if (player1)
+        if (!automatico)
         {
-            if (Input.GetKey(KeyCode.UpArrow) && meuY < meuLimite)
+
+            if (player1)
             {
-                meuY += deltaVelocidade;
+                if (Input.GetKey(KeyCode.UpArrow) && meuY < meuLimite)
+                {
+                    meuY += deltaVelocidade;
+                }
+
+                if (Input.GetKey(KeyCode.DownArrow) && meuY > (-meuLimite))
+                {
+                    meuY -= deltaVelocidade;
+                }
+            }
+            else
+            {
+                if (Input.GetKey(KeyCode.W) && meuY < meuLimite)
+                {
+                    meuY += deltaVelocidade;
+                }
+
+                if (Input.GetKey(KeyCode.S) && meuY > (-meuLimite))
+                {
+                    meuY -= deltaVelocidade;
+                }
             }
 
-            if (Input.GetKey(KeyCode.DownArrow) && meuY > (-meuLimite))
-            {
-                meuY -= deltaVelocidade;
-            }
-        } 
-        else
-        {
-            if (Input.GetKey(KeyCode.W) && meuY < meuLimite)
-            {
-                meuY += deltaVelocidade;
-            }
-
-            if (Input.GetKey(KeyCode.S) && meuY > (-meuLimite))
-            {
-                meuY -= deltaVelocidade;
-            }
         }
     }
 }
